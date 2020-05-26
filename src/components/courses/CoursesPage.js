@@ -12,6 +12,7 @@ import { toast } from "react-toastify";
 class CoursesPage extends React.Component {
   state = {
     redirectToAddCoursePage: false,
+    redirectToAddAuthorPage: false,
   };
 
   componentDidMount() {
@@ -43,17 +44,26 @@ class CoursesPage extends React.Component {
     return (
       <>
         {this.state.redirectToAddCoursePage && <Redirect to="/course" />}
+        {this.state.redirectToAddAuthorPage && <Redirect to="/author" />}
         <h2>Courses</h2>
         {this.props.loading ? (
           <Spinner />
         ) : (
           <>
             <button
-              style={{ marginBottom: 20 }}
+              style={{ marginBottom: 20, marginRight: 20 }}
               className="btn btn-primary add-course"
               onClick={() => this.setState({ redirectToAddCoursePage: true })}
             >
               Add Course
+            </button>
+
+            <button
+              style={{ marginBottom: 20 }}
+              className="btn btn-primary add-author"
+              onClick={() => this.setState({ redirectToAddAuthorPage: true })}
+            >
+              Add Author
             </button>
 
             <CourseList
