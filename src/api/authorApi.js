@@ -7,12 +7,12 @@ export function getAuthors() {
 
 export async function saveAuthor(author) {
   try {
-    let handleResponse = await fetch(baseUrl + (author.id || ""), {
+    let response = await fetch(baseUrl + (author.id || ""), {
       method: author.id ? "PUT" : "POST",
       headers: { "content-type": "application/json" },
       body: JSON.stringify(author),
     });
-    return handleResponse;
+    return handleResponse(response);
   } catch (handleError) {
     return handleError(handleError);
   }

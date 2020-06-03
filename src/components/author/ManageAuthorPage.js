@@ -4,7 +4,7 @@ import { connect } from "react-redux";
 import { saveAuthor } from "../../redux/actions/authorActions";
 import { toast } from "react-toastify";
 
-function ManageAuthorPage({ saveAuthor, ...props }) {
+function ManageAuthorPage({ authors, saveAuthor, ...props }) {
   const [authorName, setAuthor] = useState("");
 
   function handleOnChange(event) {
@@ -24,7 +24,7 @@ function ManageAuthorPage({ saveAuthor, ...props }) {
         toast.success("Author saved!");
       })
       .catch((error) => {
-        alert(error);
+        toast.error("Failed to save author!");
       });
   }
 
@@ -44,7 +44,7 @@ function ManageAuthorPage({ saveAuthor, ...props }) {
   );
 }
 
-function mapStateToProps(state, ownProps) {
+function mapStateToProps(state) {
   return {
     authors: state.authors,
   };
