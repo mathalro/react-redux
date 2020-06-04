@@ -69,6 +69,14 @@
       "slug": "web-components-shadow-dom",
       "authorId": 1,
       "category": "HTML5"
+    },
+    {
+      "id": 11,
+      "title": "teste",
+      "authorId": 4,
+      "category": "teste",
+      "createdAt": 1591313616779,
+      "slug": "teste"
     }
   ],
   "authors": [
@@ -86,23 +94,8 @@
     },
     {
       "name": "teste",
-      "createdAt": 1590941051645,
+      "createdAt": 1591313592959,
       "id": 4
-    },
-    {
-      "name": "teste3",
-      "createdAt": 1590941344713,
-      "id": 5
-    },
-    {
-      "name": "teste",
-      "createdAt": 1590950100604,
-      "id": 6
-    },
-    {
-      "name": "teste",
-      "createdAt": 1591146511881,
-      "id": 7
     }
   ]
 }
