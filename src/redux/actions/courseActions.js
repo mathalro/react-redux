@@ -18,6 +18,10 @@ export function deleteCourseOptimistic(course) {
   return { type: types.DELETE_COURSE_OPTIMISTIC, course };
 }
 
+export function searchCoursesList(filter) {
+  return { type: types.SEARCH_COURSES, filter };
+}
+
 export function loadCourses() {
   return function (dispatch) {
     dispatch(beginApiCall());
@@ -54,5 +58,11 @@ export function deleteCourse(course) {
   return function (dispatch) {
     dispatch(deleteCourseOptimistic(course));
     return courseApi.deleteCourse(course.id);
+  };
+}
+
+export function searchCourses(filter) {
+  return function (dispatch) {
+    dispatch(searchCoursesList(filter));
   };
 }

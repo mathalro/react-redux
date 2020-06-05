@@ -8,11 +8,13 @@ import CourseList from "./CourseList";
 import { Redirect } from "react-router-dom";
 import Spinner from "../common/Spinner";
 import { toast } from "react-toastify";
+import TextInput from "../common/TextInput";
 
 class CoursesPage extends React.Component {
   state = {
     redirectToAddCoursePage: false,
     redirectToAddAuthorPage: false,
+    filter: "",
   };
 
   componentDidMount() {
@@ -40,6 +42,12 @@ class CoursesPage extends React.Component {
     }
   };
 
+  handleOnChange = (event) => {
+    const { value } = event.target;
+    this.setState({ filter: value });
+    this.props.actions.searchCourse(value);
+  };
+
   render() {
     return (
       <>
@@ -65,6 +73,13 @@ class CoursesPage extends React.Component {
             >
               Add Author
             </button>
+
+            <TextInput
+              name="filter"
+              label="Filter"
+              value={this.state.filter}
+              onChange={this.handleOnChange}
+            ></TextInput>
 
             <CourseList
               onDeleteClick={this.handleDeleteCourse}
@@ -107,6 +122,7 @@ function mapDispatchToProps(dispatch) {
       loadCourses: bindActionCreators(courseActions.loadCourses, dispatch),
       loadAuthors: bindActionCreators(authorActions.loadAuthors, dispatch),
       deleteCourse: bindActionCreators(courseActions.deleteCourse, dispatch),
+      searchCourse: bindActionCreators(courseActions.searchCourses, dispatch),
     },
   };
 }
