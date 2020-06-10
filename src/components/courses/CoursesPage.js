@@ -20,7 +20,7 @@ class CoursesPage extends React.Component {
   componentDidMount() {
     const { courses, authors, actions } = this.props;
 
-    if (courses.length === 0) {
+    if (courses.list.length === 0) {
       actions.loadCourses().catch((error) => {
         alert("Loading courses failed" + error);
       });
@@ -44,8 +44,7 @@ class CoursesPage extends React.Component {
 
   handleOnChange = (event) => {
     const { value } = event.target;
-    this.setState({ filter: value });
-    this.props.actions.searchCourse(value);
+    this.setState({ filter: value.toLowerCase() });
   };
 
   render() {
@@ -84,6 +83,7 @@ class CoursesPage extends React.Component {
             <CourseList
               onDeleteClick={this.handleDeleteCourse}
               courses={this.props.courses}
+              filter={this.state.filter}
             ></CourseList>
           </>
         )}
@@ -93,7 +93,7 @@ class CoursesPage extends React.Component {
 }
 
 CoursesPage.propTypes = {
-  courses: PropTypes.array.isRequired,
+  courses: PropTypes.object.isRequired,
   authors: PropTypes.array.isRequired,
   actions: PropTypes.object.isRequired,
   loading: PropTypes.bool.isRequired,
@@ -103,14 +103,16 @@ function mapStateToProps(state) {
   return {
     courses:
       state.authors.length === 0
-        ? []
-        : state.courses.map((course) => {
-            return {
-              ...course,
-              authorName: state.authors.find((a) => a.id === course.authorId)
-                .name,
-            };
-          }),
+        ? { list: [] }
+        : {
+            list: state.courses.list.map((course) => {
+              return {
+                ...course,
+                authorName: state.authors.find((a) => a.id === course.authorId)
+                  .name,
+              };
+            }),
+          },
     authors: state.authors,
     loading: state.apiCallsInProgress > 0,
   };
